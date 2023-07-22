@@ -10,31 +10,20 @@
   outputs = { self, nixpkgs, home-manager }:
     let
       system = "x86_64-linux";
+      user = "yvonne";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
       };
       lib = nixpkgs.lib;
-
-
     in
     {
-      nixosConfigurations = {
-        yvonne = lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.yvonne = {
-                imports = [ ./home.nix ];
-              };
-            }
-          ];
-        };
-      };
+      nixosConfigurations = (                                               # NixOS configurations
+        import ./hosts {                                                    # Imports ./hosts/default.nix
+          inherit (nixpkgs) lib;
+          inherit home-manager user system;   # Also inherit home-manager so it does not need to be defined here.
+        }
+      );
     };
 
 }
