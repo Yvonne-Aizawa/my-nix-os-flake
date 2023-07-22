@@ -35,21 +35,6 @@
           ];
         };
       };
-      hmConfig = {
-        yvonne = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            ./home.nix
-            {
-              home = {
-                username = "yvonne";
-                homeDirectory = "/home/yvonne";
-                stateVersion = "23.05";
-              };
-            }
-          ];
-        };
-      };
     };
 
 }
