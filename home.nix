@@ -11,13 +11,14 @@
     htop
     gnome.gnome-disk-utility
     mangohud
-
+    yubikey-manager-qt
     proton-caller
+    virt-manager
 
     #customization
     gnome-extension-manager
-    gnome.gnome-software
     gnome3.gnome-tweaks
+    eww-wayland
 
     #develoment
     vscode
@@ -25,13 +26,14 @@
     beekeeper-studio
     github-desktop
     distrobox
+    ubports-click
 
     # entertainment
     firefox
     discord
     steam
     obs-studio
-    obsidian
+
     signal-desktop
     whatsapp-for-linux
     telegram-desktop
@@ -39,7 +41,12 @@
     ## extensions
     gnomeExtensions.openweather
     gnomeExtensions.task-widget
-    
+
+    # productivity
+    onlyoffice-bin
+    obsidian
+
+
   ];
 
   programs.git = {

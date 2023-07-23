@@ -21,8 +21,10 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./boot.nix #boot variables
 
     ];
+
   hardware.nvidia.modesetting.enable = true;
   programs.xwayland.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
@@ -35,24 +37,10 @@ in
     # Make sure x11 will use the correct package as well
     nvidia_x11 = nixos-unstable-pinned.nvidia_x11;
   };
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-  #mount home drive
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/30a1c83f-020f-490c-a7c8-f266223f779f";
-      fsType = "ext4";
-    };
-  boot.initrd.luks.devices."luks-a280ec5a-cead-45d8-9f9a-2725885e79b3".device = "/dev/disk/by-uuid/a280ec5a-cead-45d8-9f9a-2725885e79b3";
-  # Enable swap on luks
-  boot.initrd.luks.devices."luks-84278170-4da9-48f5-895b-96bc1c3b9235".device = "/dev/disk/by-uuid/84278170-4da9-48f5-895b-96bc1c3b9235";
-  boot.initrd.luks.devices."luks-84278170-4da9-48f5-895b-96bc1c3b9235".keyFile = "/crypto_keyfile.bin";
+
+
+
 
   networking.hostName = "yvonne"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -128,7 +116,7 @@ in
   users.users.yvonne = {
     isNormalUser = true;
     description = "yvonne";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
     packages = with pkgs; [
       # packages are installed using home manager
     ];
@@ -158,8 +146,14 @@ in
     gcc
     openssl
     nixpkgs-fmt
-      (callPackage ./mcontrolcenter.nix {})
+    libsForQt5.qt5.qtwayland
+    yubikey-touch-detector
+    (callPackage ./mcontrolcenter.nix { })
+    neofetch
+    # linuxKernel.packages.linux_zen.system76
+    # gnomeExtensions.battery-health-charging
   ];
+  services.pcscd.enable = true;
   virtualisation = {
     podman = {
       enable = true;
@@ -176,8 +170,12 @@ in
     };
     waydroid.enable = true;
     lxd.enable = true;
+    libvirtd.enable = true;
+
+
 
   };
+  programs.dconf.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -208,10 +206,21 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
   nix = {
     package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
+    settings.auto-optimise-store = true;
+    settings.allowed-users = [ "yvonne" ];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-outputs = true
+      keep-derivations = true
+    '';
   };
+
 
 }
