@@ -1,6 +1,6 @@
 {config, ...}:{
   imports = [
-    ./mcontrolcenter.nix
-    ./mccontrollerService.nix
+    ./mcontrollerCenterBuilder.nix
+    ./mcontrollerService.nix
   ];
 }
