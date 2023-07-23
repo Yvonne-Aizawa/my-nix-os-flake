@@ -18,7 +18,6 @@
     #customization
     gnome-extension-manager
     gnome3.gnome-tweaks
-    eww-wayland
 
     #develoment
     vscode
@@ -33,7 +32,8 @@
     discord
     steam
     obs-studio
-
+    brave
+    bitwarden
     signal-desktop
     whatsapp-for-linux
     telegram-desktop
@@ -48,6 +48,10 @@
 
 
   ];
+  # home.file.".config/eww/" = {
+  #   source = ./modules/eww/files;
+  #   # recursive = true;
+  # };
 
   programs.git = {
     enable = true;

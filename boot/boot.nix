@@ -1,7 +1,15 @@
+{pkgs, ...}:
 {
+  # boot.plymouth = {
+  #   enable = true;
+  #   theme = "breeze";
+  # };
+
   boot.initrd.kernelModules = [ "ec_sys" ];
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  # boot.plymouth.enable = true;
+  boot.kernelParams = [ "splash" ];
   boot.loader.efi.canTouchEfiVariables = true;
   #mount home drive
   fileSystems."/home" =
@@ -23,3 +31,4 @@
     options kvm ignore_msrs=1
   '';
 }
+

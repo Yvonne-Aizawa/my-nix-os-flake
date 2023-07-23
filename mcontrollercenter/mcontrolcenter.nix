@@ -1,11 +1,4 @@
-# { pkgs ? import
-#     (fetchTarball {
-#       url = "https://github.com/NixOS/nixpkgs/archive/4fe8d07066f6ea82cda2b0c9ae7aee59b2d241b3.tar.gz";
-#       sha256 = "sha256:06jzngg5jm1f81sc4xfskvvgjy5bblz51xpl788mnps1wrkykfhp";
-#     })
-#     { }
-# }:
-{ pkgs ? import <nixpkgs> { } }:
+{pkgs, ...}:
 pkgs.stdenv.mkDerivation rec {
   pname = "mcontrolcenter";
   version = "0.4.0";
@@ -47,7 +40,7 @@ pkgs.stdenv.mkDerivation rec {
     # move the bin
     install -vDm755 ./app/mcontrolcenter $out/bin/mcontrolcenter
     # move destkop file
-    install -vDm644 ./app/mcontrolcenter.desktop $out/share/applications/mcontrolcenter.desktop
+    install -vDm644 ./app/mcontrolcenter.desktop $out/usr/share/applications/mcontrolcenter.desktop
     # move svg file
     install -vDm644 ./app/mcontrolcenter.svg $out/share/icons/hicolor/scalable/apps/mcontrolcenter.svg
     # move helper
@@ -57,6 +50,5 @@ pkgs.stdenv.mkDerivation rec {
     # move service file
     install -vDm644 ./app/mcontrolcenter.helper.service $out/etc/systemd/system/mcontrolcenter.helper.service
   '';
-
-
 }
+
