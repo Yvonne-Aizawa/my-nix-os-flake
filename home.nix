@@ -11,7 +11,8 @@
     htop
     gnome.gnome-disk-utility
     mangohud
-    mullvad-vpn
+
+    proton-caller
 
     #customization
     gnome-extension-manager
@@ -23,6 +24,7 @@
     podman-desktop
     beekeeper-studio
     github-desktop
+    distrobox
 
     # entertainment
     firefox
@@ -37,6 +39,7 @@
     ## extensions
     gnomeExtensions.openweather
     gnomeExtensions.task-widget
+    
   ];
 
   programs.git = {

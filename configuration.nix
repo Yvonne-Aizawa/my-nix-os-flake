@@ -21,6 +21,7 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
     ];
   hardware.nvidia.modesetting.enable = true;
   programs.xwayland.enable = true;
@@ -44,7 +45,8 @@ in
   };
   #mount home drive
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/30a1c83f-020f-490c-a7c8-f266223f779f";
+    {
+      device = "/dev/disk/by-uuid/30a1c83f-020f-490c-a7c8-f266223f779f";
       fsType = "ext4";
     };
   boot.initrd.luks.devices."luks-a280ec5a-cead-45d8-9f9a-2725885e79b3".device = "/dev/disk/by-uuid/a280ec5a-cead-45d8-9f9a-2725885e79b3";
@@ -156,7 +158,7 @@ in
     gcc
     openssl
     nixpkgs-fmt
-    # docker
+      (callPackage ./mcontrolcenter.nix {})
   ];
   virtualisation = {
     podman = {
@@ -172,6 +174,9 @@ in
       #  dns_enabled = true;
       #};
     };
+    waydroid.enable = true;
+    lxd.enable = true;
+
   };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -182,6 +187,7 @@ in
   # };
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1u"
+    "qtwebkit-5.212.0-alpha4"
   ];
   # List services that you want to enable:
 
@@ -203,9 +209,9 @@ in
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
 
-nix = {
-  package = pkgs.nixFlakes;
-  extraOptions = "experimental-features = nix-command flakes";
-};
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = "experimental-features = nix-command flakes";
+  };
 
 }
