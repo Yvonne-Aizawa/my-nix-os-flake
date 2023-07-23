@@ -21,7 +21,9 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./boot.nix #boot variables
+      ./boot/boot.nix #boot variables
+      ./mcontrollercenter
+      (import ./waydroid)
 
     ];
 
@@ -147,9 +149,12 @@ in
     openssl
     nixpkgs-fmt
     libsForQt5.qt5.qtwayland
+    qt5Full
     yubikey-touch-detector
-    (callPackage ./mcontrolcenter.nix { })
+    # (callPackage ./mcontrollercenter/mcontrolcenter.nix { })
     neofetch
+    plymouth
+    # nixos-bgrt-plymouth
     # linuxKernel.packages.linux_zen.system76
     # gnomeExtensions.battery-health-charging
   ];
@@ -168,8 +173,7 @@ in
       #  dns_enabled = true;
       #};
     };
-    waydroid.enable = true;
-    lxd.enable = true;
+
     libvirtd.enable = true;
 
 
