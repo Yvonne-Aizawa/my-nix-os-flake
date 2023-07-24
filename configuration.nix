@@ -21,9 +21,11 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./boot/boot.nix #boot variables
-      ./mcontrollercenter
-      (import ./waydroid)
+      ./boot #boot variables
+      # ./mcontrollercenter
+      ./packages
+      ./overlays
+      ./waydroid
 
     ];
 
@@ -151,12 +153,11 @@ in
     libsForQt5.qt5.qtwayland
     qt5Full
     yubikey-touch-detector
+    gparted
     # (callPackage ./mcontrollercenter/mcontrolcenter.nix { })
     neofetch
     plymouth
-    # nixos-bgrt-plymouth
-    # linuxKernel.packages.linux_zen.system76
-    # gnomeExtensions.battery-health-charging
+
   ];
   services.pcscd.enable = true;
   virtualisation = {

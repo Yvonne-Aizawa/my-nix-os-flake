@@ -12,6 +12,7 @@
     gnome.gnome-disk-utility
     mangohud
     yubikey-manager-qt
+    yubioath-flutter
     proton-caller
     virt-manager
 
@@ -37,14 +38,21 @@
     signal-desktop
     whatsapp-for-linux
     telegram-desktop
+    minecraft
 
     ## extensions
     gnomeExtensions.openweather
     gnomeExtensions.task-widget
+    gnomeExtensions.tray-icons-reloaded
+    gnomeExtensions.just-perfection
+    gnomeExtensions.gnome-bedtime
+    gnomeExtensions.vitals
+    gnomeExtensions.top-bar-organizer
 
     # productivity
     onlyoffice-bin
     obsidian
+    syncthing
 
 
   ];
@@ -70,7 +78,7 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "23.05";
-
+  services.syncthing.enable = true;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
