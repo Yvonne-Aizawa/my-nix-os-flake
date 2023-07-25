@@ -6,9 +6,9 @@
   };
   # XDG portal
 xdg.portal.enable = true;
-# xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
 systemd = {
-  user.services.polkit-gnome-authentication-agent-1 = {
+  services.polkit-gnome-authentication-agent-1 = {
     description = "polkit-gnome-authentication-agent-1";
     wantedBy = [ "graphical-session.target" ];
     wants = [ "graphical-session.target" ];
