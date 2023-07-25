@@ -8,7 +8,7 @@ let
   nixos-unstable-pinned = import
     (builtins.fetchTarball {
       name = "nixos-unstable_nvidia-x11-470.57.02";
-      url = https://github.com/nixos/nixpkgs/archive/03100da5a714a2b6c5210ceb6af092073ba4fce5.tar.gz;
+      url = "https://github.com/nixos/nixpkgs/archive/03100da5a714a2b6c5210ceb6af092073ba4fce5.tar.gz";
       sha256 = "0bblrvhig7vwiq2lgjrl5ibil3sz7hj26gaip6y8wpd9xcjr3v7a";
     })
     { config.allowUnfree = true; };
@@ -30,8 +30,13 @@ in
     ];
 
   hardware.nvidia.modesetting.enable = true;
-  programs.xwayland.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
+  programs.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+  };
+
+  # programs.xwayland.enable = true;
+
   # services.xserver.displayManager.gdm.nvidiaWayland = true;
   hardware.opengl.enable = true;
   # Install nvidia 460
@@ -39,7 +44,7 @@ in
     # Swap out all of the linux packages
     linuxPackages_latest = pinnedKernelPackages;
     # Make sure x11 will use the correct package as well
-    nvidia_x11 = nixos-unstable-pinned.nvidia_x11;
+    inherit (nixos-unstable-pinned) nvidia_x11;
   };
 
 
@@ -85,12 +90,19 @@ in
   #services.xserver.displayManager.sddm.enable = true;
   #services.xserver.desktopManager.plasma5.enable = true;
   # Enable Gnome Desktop Enviroment
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
   # Configure keymap in X11
+
   services.xserver = {
     layout = "us";
     xkbVariant = "";
+    displayManager = {
+      gdm.enable = true;
+      gdm.wayland = true;
+      defaultSession = "hyprland";
+    };
+    desktopManager = {
+      gnome.enable = true;
+    };
   };
 
   # Enable CUPS to print documents.
@@ -134,7 +146,10 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
+  fonts.fonts = with pkgs; [
+    
+    rPackages.fontawesome
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -155,8 +170,18 @@ in
     yubikey-touch-detector
     gparted
     # (callPackage ./mcontrollercenter/mcontrolcenter.nix { })
+    killall
     neofetch
     plymouth
+    dunst
+    wofi
+    dbus-map
+    sccache
+    waybar
+    kitty
+    libnotify
+    wireplumber
+    sway-contrib.grimshot
 
   ];
   services.pcscd.enable = true;
@@ -193,17 +218,23 @@ in
     "qtwebkit-5.212.0-alpha4"
   ];
   # List services that you want to enable:
+  #   systemd.user.services.yubikey-touch-detector = {
+  #   enable = true;
+  #   description = "YubiKey Touch Detector";
+  #   serviceConfig.ExecStart = "${pkgs.yubikey-touch-detector}/yubikey-touch-detector -stdout --libnotify";
+  #   # additional configuration here...
+  # };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  
   programs.zsh.enable = true;
   programs.fish.enable = true;
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 22 80 443 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

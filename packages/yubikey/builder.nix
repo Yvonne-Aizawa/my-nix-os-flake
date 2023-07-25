@@ -1,6 +1,6 @@
 {pkgs, ...}:
 {
     environment.systemPackages = with pkgs; [
-        (callPackage ./mcontrolcenter.nix { })
+        (callPackage ./yubikey.nix { })
     ];
 }

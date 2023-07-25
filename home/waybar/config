@@ -1,0 +1,21 @@
+[{
+    "layer": "top",
+    "modules-left": ["tray"],
+    "modules-right": ["battery", "clock"],
+    "sway/window": {
+        "max-length": 100
+    },
+    "battery": {
+        "name": "battery",
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "on-click": "notify-send banana"
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    }
+}]

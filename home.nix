@@ -1,10 +1,27 @@
 { config, pkgs, ... }:
 
 {
+  #   xdg.mimeApps = {
+  #   enable = true;
+
+  #   defaultApplications = {
+  #     "text/html" = "firefox.desktop";
+  #     "text/xml" = "firefox.desktop";
+  #     "application/xhtml_xml" = "firefox.desktop";
+  #     "image/webp" = "firefox.desktop";
+  #     "x-scheme-handler/http" = "firefox.desktop";
+  #     "x-scheme-handler/https" = "firefox.desktop";
+  #     "x-scheme-handler/ftp" = "firefox.desktop";
+  #   };
+  # };
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "yvonne";
   home.homeDirectory = "/home/yvonne";
+  xdg.enable = true;
+  xdg.configFile."/.config/dunst/dunstrc" = {
+      source = ./home/dunst/dunstrc;
+  };
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     # tools
@@ -15,6 +32,7 @@
     yubioath-flutter
     proton-caller
     virt-manager
+    # yubikey-touch-detector
 
     #customization
     gnome-extension-manager
@@ -22,11 +40,16 @@
 
     #develoment
     vscode
-    podman-desktop
+    pods
     beekeeper-studio
     github-desktop
     distrobox
     ubports-click
+    insomnia
+
+
+    #nix development
+    statix
 
     # entertainment
     firefox
@@ -40,7 +63,7 @@
     telegram-desktop
     minecraft
 
-    ## extensions
+    # Gnome extensions
     gnomeExtensions.openweather
     gnomeExtensions.task-widget
     gnomeExtensions.tray-icons-reloaded
@@ -48,7 +71,10 @@
     gnomeExtensions.gnome-bedtime
     gnomeExtensions.vitals
     gnomeExtensions.top-bar-organizer
+    gnomeExtensions.syncthing-icon
 
+    #hyprland
+    syncthingtray
     # productivity
     onlyoffice-bin
     obsidian
@@ -56,6 +82,8 @@
 
 
   ];
+  # if extensions are disabled run
+  # gsettings set org.gnome.shell disable-user-extensions false
   # home.file.".config/eww/" = {
   #   source = ./modules/eww/files;
   #   # recursive = true;
@@ -79,6 +107,7 @@
   # changes in each release.
   home.stateVersion = "23.05";
   services.syncthing.enable = true;
+  # services.yubikey-touch-detector.enable = true;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
