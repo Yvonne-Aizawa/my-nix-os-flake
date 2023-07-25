@@ -18,10 +18,9 @@
   # paths it should manage.
   home.username = "yvonne";
   home.homeDirectory = "/home/yvonne";
-  xdg.enable = true;
-  xdg.configFile."/.config/dunst/dunstrc" = {
-      source = ./home/dunst/dunstrc;
-  };
+  imports = [
+    ./hyprland/home.nix
+  ];
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     # tools
@@ -79,6 +78,7 @@
     onlyoffice-bin
     obsidian
     syncthing
+    home-manager
 
 
   ];

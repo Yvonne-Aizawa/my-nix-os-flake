@@ -22,7 +22,7 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./boot #boot variables
-      # ./mcontrollercenter
+      ./hyprland
       ./packages
       ./overlays
       ./waydroid
@@ -30,10 +30,10 @@ in
     ];
 
   hardware.nvidia.modesetting.enable = true;
-  programs.hyprland = {
-    enable = true;
-    nvidiaPatches = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   nvidiaPatches = true;
+  # };
 
   # programs.xwayland.enable = true;
 
@@ -98,7 +98,7 @@ in
     displayManager = {
       gdm.enable = true;
       gdm.wayland = true;
-      defaultSession = "hyprland";
+      defaultSession = "gnome";
     };
     desktopManager = {
       gnome.enable = true;
@@ -173,16 +173,9 @@ in
     killall
     neofetch
     plymouth
-    dunst
-    wofi
+
     dbus-map
     sccache
-    waybar
-    kitty
-    libnotify
-    wireplumber
-    sway-contrib.grimshot
-
   ];
   services.pcscd.enable = true;
   virtualisation = {
@@ -205,6 +198,7 @@ in
 
 
   };
+  security.polkit.enable = true;
   programs.dconf.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -8,6 +8,7 @@ set -o pipefail
 if value=$(dd if=/sys/kernel/debug/ec/ec0/io bs=1 skip=239 count=1 2>/dev/null | od -An -t x1); then
     echo "Read operation succeeded."
     echo "Value at address 0xEF is: $value"
+
 else
     echo "Read operation failed." >&2
     exit 1

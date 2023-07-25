@@ -22,6 +22,7 @@ fi
 
 if echo -n -e "$hex_value" | dd of=/sys/kernel/debug/ec/ec0/io bs=1 seek=152 conv=notrunc 2>/dev/null; then
     echo "Write operation succeeded."
+    notify-send "Fan" "set boost to : $1"&
 else
     echo "Write operation failed." >&2
     exit 1
