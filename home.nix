@@ -31,11 +31,12 @@
     yubioath-flutter
     proton-caller
     virt-manager
-    # yubikey-touch-detector
+    yubikey-touch-detector
 
     #customization
-    gnome-extension-manager
-    gnome3.gnome-tweaks
+    # gnome-extension-manager
+    # gnome3.gnome-tweaks
+    
 
     #develoment
     vscode
@@ -52,7 +53,9 @@
 
     # entertainment
     firefox
-    discord
+    chromium
+    # discord
+    webcord-vencord
     steam
     obs-studio
     brave
@@ -61,19 +64,20 @@
     whatsapp-for-linux
     telegram-desktop
     minecraft
+    gimp
 
-    # Gnome extensions
-    gnomeExtensions.openweather
-    gnomeExtensions.task-widget
-    gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.just-perfection
-    gnomeExtensions.gnome-bedtime
-    gnomeExtensions.vitals
-    gnomeExtensions.top-bar-organizer
-    gnomeExtensions.syncthing-icon
+    # # Gnome extensions
+    # gnomeExtensions.openweather
+    # gnomeExtensions.task-widget
+    # gnomeExtensions.tray-icons-reloaded
+    # gnomeExtensions.just-perfection
+    # gnomeExtensions.gnome-bedtime
+    # gnomeExtensions.vitals
+    # gnomeExtensions.top-bar-organizer
+    # gnomeExtensions.syncthing-icon
 
     #hyprland
-    syncthingtray
+    # syncthingtray
     # productivity
     onlyoffice-bin
     obsidian

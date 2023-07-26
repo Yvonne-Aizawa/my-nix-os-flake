@@ -1,9 +1,10 @@
 [{
     "layer": "top",
-    "height": 50,
-    "modules-left": ["tray"],
-    "modules-center": ["network"],
-    "modules-right": [ "pulseaudio","battery", "clock"],
+    "height": 40,
+    "position": "bottom",
+    "modules-left": ["image#start","wlr/taskbar"],
+    // "modules-center": [],
+    "modules-right": [ "image#arrow","pulseaudio","battery","tray", "clock"],
     "sway/window": {
         "max-length": 100
     },
@@ -17,7 +18,8 @@
         "format-alt": "{:%a, %d. %b  %H:%M}"
     },
     "tray": {
-        "icon-size": 21,
+        "icon-size": 34,
+        "icon-theme": "Numix-Circle",
         "spacing": 10
     },
     "network": {
@@ -29,8 +31,20 @@
             "ethernet": ["ethernet"],
             "disconnected": ["not connected"]
         },
-        "on-click": "nm-connection-editor",
+        "on-click": "nm-applet",
     "tooltip": false
+    },
+    "hyprland/workspaces": {
+        "format": "{id}: {icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "active": "",
+            "default": ""
+        }
     },
     "pulseaudio": {
 		"format": "{icon} {volume:2}%",
@@ -46,5 +60,30 @@
 		"scroll-step": 5,
 		"on-click": "pamixer -t",
 		"on-click-right": "pavucontrol"
-	}
+	},
+    "custom#start": {
+        "format":"",
+        "on-click": "rofi -modes drun -show drun",
+        "size": 100
+   },
+   "custom#arrow": {
+    "format":"",
+
+    "size": 100
+},
+   "wlr/taskbar": {
+    "format": "{icon} {name}",
+    "icon-size": 30,
+    
+    "icon-theme": "Numix-Circle",
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    // "on-click-right": "minimize",
+
+
+    "rewrite": {
+        "firefox": "Firefox",
+        "Foot Server": "Terminal"
+    }
+}
 }]

@@ -4,6 +4,7 @@
     pkgs.waybar
     pkgs.dunst
     pkgs.wofi
+    pkgs.rofi-wayland
     pkgs.libnotify
     pkgs.swww
     pkgs.kitty
@@ -18,6 +19,7 @@
     pkgs.wl-clipboard
     pkgs.networkmanagerapplet
     pkgs.ponymix
+    pkgs.libsForQt5.kwallet-pam
     (pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     })

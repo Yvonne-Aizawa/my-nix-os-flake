@@ -1,0 +1,40 @@
+window#waybar{
+    background-color: #235BD9;
+}
+.start{
+    background-image: url("/home/yvonne/.config/waybar/start.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+	min-width: 130px;
+    
+    /* min-height: 100px; */
+    /* background-size: 100px; */
+}
+.arrow{
+    background-image: url("/home/yvonne/.config/waybar/arrow.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+	min-width: 26px;
+	min-height: 41px;
+    
+    /* min-height: 100px; */
+    /* background-size: 100px; */
+}
+#taskbar button.active {
+    background-color: #3980F4;
+}
+#taskbar button {
+    background-color: #1951B9;
+}
+#clock {
+    background-color: #0F9DEE;
+}
+#tray {
+    background-color: #0F9DEE;
+}
+#battery {
+    background-color: #0F9DEE;
+}
+#pulseaudio {
+    background-color: #0F9DEE;
+}
