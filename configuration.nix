@@ -198,7 +198,8 @@ in
 
 
   };
-  # security.polkit.enable = true;
+  security.polkit.enable = true;
+
   programs.dconf.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

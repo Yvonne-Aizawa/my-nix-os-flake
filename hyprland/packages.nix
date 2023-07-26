@@ -7,9 +7,11 @@
     pkgs.libnotify
     pkgs.swww
     pkgs.kitty
-    pkgs.polkit_gnome
-    pkgs.xdg-desktop-portal-gtk
+    pkgs.polkit-kde-agent
+    pkgs.xdg-desktop-portal-hyprland
     pkgs.sway-contrib.grimshot
+    pkgs.xorg.xhost
+    pkgs.udiskie
     (pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     })
