@@ -98,10 +98,11 @@ in
     displayManager = {
       gdm.enable = true;
       gdm.wayland = true;
-      defaultSession = "gnome";
+      defaultSession = "hyprland";
     };
     desktopManager = {
-      gnome.enable = true;
+      # gnome.enable = true;
+      plasma5.enable = true;
     };
   };
 
@@ -173,6 +174,7 @@ in
     killall
     neofetch
     plymouth
+    jetbrains-toolbox
 
     dbus-map
     sccache
