@@ -20,6 +20,11 @@
     pkgs.networkmanagerapplet
     pkgs.ponymix
     pkgs.libsForQt5.kwallet-pam
+    pkgs.wlogout
+    pkgs.swaylock
+    # pkgs.swaylock-effects
+    pkgs.swayidle
+    pkgs.brightnessctl
     (pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
     })

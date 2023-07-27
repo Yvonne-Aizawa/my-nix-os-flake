@@ -15,6 +15,19 @@ let
 
   # We'll use this twice
   pinnedKernelPackages = nixos-unstable-pinned.linuxPackages_latest;
+  configure-gtk = pkgs.writeTextFile {
+    name = "configure-gtk";
+    destination = "/bin/configure-gtk";
+    executable = true;
+    text = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      gnome_schema=org.gnome.desktop.interface
+      gsettings set $gnome_schema gtk-theme 'Dracula'
+    '';
+  };
 in
 {
   imports =
@@ -96,9 +109,9 @@ in
     layout = "us";
     xkbVariant = "";
     displayManager = {
-      gdm.enable = true;
-      gdm.wayland = true;
-      defaultSession = "hyprland";
+       gdm.enable = true;
+       gdm.wayland = true;
+       defaultSession = "hyprland";
     };
     desktopManager = {
       # gnome.enable = true;
@@ -133,7 +146,7 @@ in
   users.users.yvonne = {
     isNormalUser = true;
     description = "yvonne";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "video" ];
     packages = with pkgs; [
       # packages are installed using home manager
     ];
@@ -156,6 +169,7 @@ in
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    configure-gtk
     fuse
     fuse3
     appimage-run
@@ -172,9 +186,14 @@ in
     gparted
     # (callPackage ./mcontrollercenter/mcontrolcenter.nix { })
     killall
+    dracula-theme
+    gnome3.adwaita-icon-theme
     neofetch
     plymouth
     jetbrains-toolbox
+    xdg-utils
+    glib
+    wdisplays
 
     dbus-map
     sccache
@@ -201,7 +220,7 @@ in
 
   };
   security.polkit.enable = true;
-
+  programs.light.enable = true;
   programs.dconf.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
