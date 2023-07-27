@@ -17,7 +17,7 @@
     name = "kwallet";
     enableKwallet = true;
   };
-  security.pam.services.swaylock = {};
+  security.pam.services.gtklock = {};
 
   systemd = {
     user.services.polkit-kde-authentication-agent-1 = {

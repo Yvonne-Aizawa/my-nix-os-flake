@@ -21,7 +21,9 @@
     pkgs.ponymix
     pkgs.libsForQt5.kwallet-pam
     pkgs.wlogout
-    pkgs.swaylock
+    pkgs.gtklock
+    pkgs.flat-remix-icon-theme
+    pkgs.jq
     # pkgs.swaylock-effects
     pkgs.swayidle
     pkgs.brightnessctl

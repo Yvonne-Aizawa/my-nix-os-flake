@@ -1,5 +1,6 @@
 { xdg, pkgs, ... }:
 {
+  gtk.iconTheme.package = "pkgs.flat-remix-icon-theme";
   xdg.enable = true;
   xdg.configFile."/.config/dunst/dunstrc" = {
     source = ../home/dunst/dunstrc;
@@ -32,6 +33,11 @@
     source = ../home/wlogout;
     recursive = true;
   };
+  xdg.configFile."/.config/gtklock/" = {
+    source = ../home/gtklock;
+    recursive = true;
+  };
+
 
 
 

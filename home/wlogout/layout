@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock -i /home/yvonne/wallpaper_dark.png",
+    "action" : "gtklock",
     "text" : "Lock",
     "keybind" : "l"
 }

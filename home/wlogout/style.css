@@ -3,42 +3,61 @@
 }
 window {
 	background-color: rgba(12, 12, 12, 0.0);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	background-image: image(url("/home/yvonne/.config/wlogout/assets/Bitmap20142.jpg"));
 }
 button {
-    color: #95B2F4;
-	background-color: #1E1E1E;
-	border-style: solid;
-	border-width: 2px;
+    /* color: #95B2F4;
+	background-color: #1E1E1E; */
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 25%;
 }
 
-button:focus, button:active, button:hover {
-	background-color: #5DB060;
-	outline-style: none;
-}
+
 
 #lock {
-    background-image: image(url("/home/yvonne/.config/wlogout/icons/lock.png"), url("/home/yvonne/.config/wlogout/icons/lock.png"));
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/SwitchUser.bmp"));
+}
+#lock:hover {
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/SwitchUserHover.bmp"));
 }
 
+
 #logout {
-    background-image: image(url("/home/yvonne/.config/wlogout/icons/logout.png"), url("/home/yvonne/.config/wlogout/icons/logout.png"));
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/LogOff.bmp"));
+}
+#logout:hover {
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/LogOffHover.bmp"));
 }
 
 #suspend {
-    background-image: image(url("/home/yvonne/.config/wlogout/icons/suspend.png"), url("/home/yvonne/.config/wlogout/icons/suspend.png"));
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/StandBy.bmp"));
+}
+#suspend:hover {
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/StandByHover.bmp"));
 }
 
 #hibernate {
-    background-image: image(url("/home/yvonne/.config/wlogout/icons/hibernate.png"), url("/home/yvonne/.config/wlogout/icons/hibernate.png"));
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/StandBy.bmp"));
+}
+#hibernate:hover {
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/StandByHover.bmp"));
 }
 
+
 #shutdown {
-    background-image: image(url("/home/yvonne/.config/wlogout/icons/shutdown.png"), url("/home/yvonne/.config/wlogout/icons/shutdown.png"));
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/TurnOff.bmp"));
+}
+#shutdown:hover {
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/TurnOffHover.bmp"));
 }
 
 #reboot {
-    background-image: image(url("/home/yvonne/.config/wlogout/icons/reboot.png"), url("/home/yvonne/.config/wlogout/icons/reboot.png"));
+    background-image: image(url("/home/yvonne/.config/wlogout/assets/Restart.bmp"));
+}
+#reboot:hover {
+	background-image: image(url("/home/yvonne/.config/wlogout/assets/RestartHover.bmp"));
 }

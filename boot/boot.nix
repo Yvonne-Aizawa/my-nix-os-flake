@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs,config, ...}:
 {
 
 
@@ -9,6 +9,9 @@
   boot.kernelParams = [ "splash" ];
   boot.loader.efi.canTouchEfiVariables = true;
   #mount home drive
+   boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
 
   boot.extraModprobeConfig = ''
     options kvm_intel nested=1
