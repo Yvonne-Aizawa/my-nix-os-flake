@@ -19,14 +19,16 @@ let
     name = "configure-gtk";
     destination = "/bin/configure-gtk";
     executable = true;
-    text = let
-      schema = pkgs.gsettings-desktop-schemas;
-      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-    in ''
-      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-      gnome_schema=org.gnome.desktop.interface
-      gsettings set $gnome_schema gtk-theme 'Dracula'
-    '';
+    text =
+      let
+        schema = pkgs.gsettings-desktop-schemas;
+        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+      in
+      ''
+        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        gnome_schema=org.gnome.desktop.interface
+        gsettings set $gnome_schema gtk-theme 'Dracula'
+      '';
   };
 in
 {
@@ -109,9 +111,9 @@ in
     layout = "us";
     xkbVariant = "";
     displayManager = {
-       gdm.enable = true;
-       gdm.wayland = true;
-       defaultSession = "hyprland";
+      gdm.enable = true;
+      # gdm.wayland = true;
+      defaultSession = "hyprland";
     };
     desktopManager = {
       # gnome.enable = true;
@@ -123,8 +125,8 @@ in
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = false;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -146,7 +148,7 @@ in
   users.users.yvonne = {
     isNormalUser = true;
     description = "yvonne";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "video" "plugdev" "signald" ];
     packages = with pkgs; [
       # packages are installed using home manager
     ];
@@ -161,7 +163,7 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   fonts.fonts = with pkgs; [
-    
+
     rPackages.fontawesome
   ];
   # List packages installed in system profile. To search, run:
@@ -199,9 +201,18 @@ in
     sccache
     bluez
     blueberry
+    android-tools
+    # gurk-rs
+    cmake
+    #rimpy
+    tzdata
+    #messaging
+    pidgin
+    purple-signald
   ];
   qt.style = "adwaita-dark";
   services.pcscd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
   virtualisation = {
     podman = {
       enable = true;
@@ -246,7 +257,8 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  
+  services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.package = pkgs.mullvad-vpn;
   programs.zsh.enable = true;
   programs.fish.enable = true;
   # Open ports in the firewall.
@@ -276,6 +288,46 @@ in
       keep-derivations = true
     '';
   };
-
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "android_udev";
+      text = ''
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0e79", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0502", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0b05", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="413c", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0489", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="091e", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0bb4", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="24e3", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="2116", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0482", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="17ef", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="1004", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="22b8", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0409", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="2080", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0955", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="2257", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="10a9", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="1d4d", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0471", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="04da", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="05c6", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="1f53", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="04dd", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="0930", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="19d2", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="2ae5", MODE="0666", GROUP="plugdev"
+        SUBSYSTEM=="usb", ATTRS{idVendor}=="2a45", MODE="0666", GROUP="plugdev"
+      '';
+      destination = "/etc/udev/rules.d/51-android.rules";
+    })
+  ];
+ 
 
 }

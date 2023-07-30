@@ -3,5 +3,6 @@
     # ./gdlauncher
     # ./isw
     # ./yubikey
+    # ./rimpy
   ];
 }
